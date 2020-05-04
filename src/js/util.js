@@ -1,0 +1,1 @@
+export const danrom = (max) => Math.floor(Math.random() * max);
