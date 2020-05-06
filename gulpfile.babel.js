@@ -1,6 +1,7 @@
 import gulp from 'gulp';
 import gpug from 'gulp-pug';
 import del from 'del';
+import ws from 'gulp-webserver';
 
 const routes = {
     pug: {
@@ -17,8 +18,12 @@ const pug = () =>
 
 const clean = () => del(["build"]);
 
+const webserver = () => gulp.src("build").pipe(ws({livereload: true}));
+
 const prepare = gulp.series([clean]);
 
 const asset = gulp.series([pug]);
 
-export const dev = gulp.series([prepare, asset]);
+const postDev = gulp.series([webserver]);
+
+export const dev = gulp.series([prepare, asset, postDev]);
